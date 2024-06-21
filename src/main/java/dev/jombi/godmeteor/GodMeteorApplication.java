@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GodmeteorApplication {
+public class GodMeteorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GodmeteorApplication.class, args);
+        SpringApplication.run(GodMeteorApplication.class, args);
     }
 
 }
