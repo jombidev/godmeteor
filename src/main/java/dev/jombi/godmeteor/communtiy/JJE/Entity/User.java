@@ -35,10 +35,11 @@ public class User {
         this.name = name;
     }
 
+    @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-    @PrePersist
+    @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
