@@ -1,4 +1,4 @@
-package dev.jombi.godmeteor.communtiy.JJE;
+package dev.jombi.godmeteor.communtiy.JJE.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
