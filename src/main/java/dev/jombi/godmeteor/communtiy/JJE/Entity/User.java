@@ -8,18 +8,17 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String email;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
