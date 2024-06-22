@@ -1,8 +1,18 @@
 package dev.jombi.godmeteor.communtiy.SYS.dto;
 
+import dev.jombi.godmeteor.communtiy.JJE.Entity.User;
+
 public class UserDto {
     private Long id;
     private String name;
+
+    public UserDto() {
+    }
+
+    public UserDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
