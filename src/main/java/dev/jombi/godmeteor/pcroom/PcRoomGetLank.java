@@ -39,6 +39,7 @@ public class PcRoomGetLank {
     private String parse(String responseBody) {
         ObjectMapper mapper = new ObjectMapper();
         try {
+           // JsonNode root = mapper.readValue("대충 클래스 나중에 만들꺼",Integer);
             JsonNode root = mapper.readTree(responseBody);
             JsonNode gameRankNode = root.path("gameRank");
             String gameRank = gameRankNode.asText(); // Assuming gameRank is a string
