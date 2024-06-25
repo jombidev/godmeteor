@@ -30,6 +30,9 @@ public class PostServiceImpl implements PostService {
 
         for (Post post : all) {
             PostResponseDto postDto = PostResponseDto.builder()
+                    .id(post.getId())
+                    .createdAt(post.getCreatedAt())
+                    .updatedAt(post.getUpdatedAt())
                     .title(post.getTitle())
                     .contents(post.getContents())
                     .writer(post.getWriter())
@@ -46,6 +49,9 @@ public class PostServiceImpl implements PostService {
         Post post = postWrapper.get();
 
         return PostResponseDto.builder()
+                .id(post.getId())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .title(post.getTitle())
                 .contents(post.getContents())
                 .writer(post.getWriter())
@@ -66,6 +72,9 @@ public class PostServiceImpl implements PostService {
 
         for(Post post : posts){
             PostResponseDto build = PostResponseDto.builder()
+                    .id(post.getId())
+                    .createdAt(post.getCreatedAt())
+                    .updatedAt(post.getUpdatedAt())
                     .title(post.getTitle())
                     .contents(post.getContents())
                     .writer(post.getWriter())
