@@ -4,6 +4,7 @@ import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
 import dev.jombi.godmeteor.communtiy.SYS.dto.PostRequestDto;
 import dev.jombi.godmeteor.communtiy.SYS.repository.PostRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void savePost(PostRequestDto postRequestDto) {
-        postRepository.save(postRequestDto.ToEntity());
+        postRepository.save(postRequestDto.toEntity());
     }
 
     @Override
