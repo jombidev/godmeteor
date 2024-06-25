@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.1'
     id 'io.spring.dependency-management' version '1.1.5'
+    id "com.google.protobuf" version "0.9.4"
 }
 
 group = 'dev.jombi'
@@ -10,6 +11,21 @@ version = '0.0.1-SNAPSHOT'
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            //noinspection GroovyAssignabilityCheck
+            srcDir 'src/main/protobuf'
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:4.27.1'
     }
 }
 
@@ -25,13 +41,14 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'com.google.protobuf:protobuf-java:4.27.1'
 }
 
 tasks.named('test') {
