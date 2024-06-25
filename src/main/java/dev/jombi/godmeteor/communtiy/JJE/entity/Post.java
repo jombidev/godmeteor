@@ -23,7 +23,7 @@ public class Post extends PostDateTime {
     private String contents;
 
     @Builder
-    public Post(String writer, String title, String contents) {
+    public void updatePost(String writer, String title, String contents) {
         this.writer = writer;
         this.title = title;
         this.contents = contents;
