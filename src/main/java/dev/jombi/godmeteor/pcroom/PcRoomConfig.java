@@ -11,11 +11,6 @@ import java.net.http.HttpClient;
 public class PcRoomConfig {
 
     @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @Bean
     public HttpClient httpClient() {
         return HttpClient.newHttpClient();
     }
