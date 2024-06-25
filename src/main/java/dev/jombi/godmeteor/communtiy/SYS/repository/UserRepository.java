@@ -1,6 +1,6 @@
 package dev.jombi.godmeteor.communtiy.SYS.repository;
 
-import dev.jombi.godmeteor.communtiy.JJE.Entity.Post;
+import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

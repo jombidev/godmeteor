@@ -1,6 +1,5 @@
 package dev.jombi.godmeteor.communtiy.JJE.entity;
 
-import dev.jombi.godmeteor.communtiy.SYS.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
