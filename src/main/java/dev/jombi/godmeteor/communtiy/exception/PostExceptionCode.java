@@ -1,18 +1,16 @@
 package dev.jombi.godmeteor.communtiy.exception;
 
 import dev.jombi.godmeteor.global.exception.ExceptionDetail;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-public enum CommunityExceptionCode implements ExceptionDetail {
-    INTERNAL_SERVER_ERROR("오류", HttpStatus.INTERNAL_SERVER_ERROR);
+@AllArgsConstructor
+public enum PostExceptionCode implements ExceptionDetail {
+    POST_NOT_FOUND("아이디 '%s'를 가진 게시글을 찾을 수 없음", HttpStatus.NOT_FOUND),
+    ;
 
     private final String message;
     private final HttpStatus status;
-
-    CommunityExceptionCode(String message, HttpStatus status) {
-        this.message = message;
-        this.status = status;
-    }
 
     @Override
     public String getMessage() {
@@ -29,3 +27,4 @@ public enum CommunityExceptionCode implements ExceptionDetail {
         return name();
     }
 }
+

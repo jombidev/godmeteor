@@ -7,4 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomException extends RuntimeException {
     private final ExceptionDetail detail;
+    private Object[] formats = new Object[0];
+
+    public CustomException setFormats(Object... formats) {
+        this.formats = formats;
+        return this;
+    }
 }
