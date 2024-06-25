@@ -4,10 +4,9 @@ import lombok.*;
 import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
 import java.time.LocalDateTime;
 
-@Data
 @NoArgsConstructor
 @Getter @Setter
-public class PostDto {
+public class PostRequestDto {
 
     private Long id;
     private String writer;
@@ -17,13 +16,10 @@ public class PostDto {
     private LocalDateTime updatedAt;
 
     @Builder
-    public PostDto(Long id, String writer, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+    public PostRequestDto(String writer, String title, String contents) {
         this.writer = writer;
         this.title = title;
         this.contents = contents;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public Post ToEntity() {
