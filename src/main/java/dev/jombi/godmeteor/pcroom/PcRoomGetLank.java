@@ -3,6 +3,7 @@ package dev.jombi.godmeteor.pcroom;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.jombi.godmeteor.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class PcRoomGetLank {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             return parse(response.body()).toString();
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException("Failed to fetch data", e);
+            throw new CustomException(PcRoomExceptionCode.Not_Found_PcRoom_Rank);
         }
     }
 //제이슨 파싱
@@ -47,19 +48,5 @@ public class PcRoomGetLank {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to parse data", e);
         }
-    }
-}
-//싱글톤? 빈 생성
-@Configuration
-class AppConfig {
-
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @Bean
-    public HttpClient httpClient() {
-        return HttpClient.newHttpClient();
     }
 }

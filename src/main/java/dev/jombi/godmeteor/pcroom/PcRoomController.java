@@ -1,22 +1,27 @@
 package dev.jombi.godmeteor.pcroom;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import dev.jombi.godmeteor.global.response.ResponseData;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Objects;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 public class PcRoomController {
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String home(){
-        return "home";
+    private final PcRoomGetLank pcRoomGetLank;
+
+    @GetMapping(value = "/pcRank")
+    public String getGameRank(@RequestParam String gameRank) {
+        return pcRoomGetLank.get();
     }
-    @ResponseBody
-    @RequestMapping(value = "/test",method = RequestMethod.POST)
-    public void init(HashMap<String, Objects>map){
-        System.out.println(map);
+
+    @GetMapping(value = "/users")
+    public ResponseEntity<ResponseData<String>> PcRoomGetGameRankResponseEntity() {
+        return ResponseData.ok("잘되나?", pcRoomGetLank.get());
     }
+
 
 }
