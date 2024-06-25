@@ -2,62 +2,63 @@ package dev.jombi.godmeteor.pcroom;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLParameters;
 import java.io.IOException;
-import java.net.Authenticator;
-import java.net.CookieHandler;
-import java.net.ProxySelector;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.Duration;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
+
+@RequiredArgsConstructor
+@Service
 public class PcRoomGetLank {
+
+    private final ObjectMapper objectMapper;
+    private final HttpClient httpClient;
+//제이슨 가져오기
     public String get() {
         String url = "https://www.thelog.co.kr/api/common/getCommonState.do?gameDataType=S";
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .build();
 
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             return parse(response.body());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Failed to fetch data", e);
         }
     }
-
+//제이슨 파싱
     private String parse(String responseBody) {
-        ObjectMapper mapper = new ObjectMapper();
         try {
-           // JsonNode root = mapper.readValue("대충 클래스 나중에 만들꺼",Integer);
-            JsonNode root = mapper.readTree(responseBody);
+//            JsonNode root = objectMapper.readValue(json,PcRoomJson);
+            JsonNode root = objectMapper.readTree(responseBody);
             JsonNode gameRankNode = root.path("gameRank");
-            String gameRank = gameRankNode.asText(); // Assuming gameRank is a string
+            String gameRank = gameRankNode.asText();
             return gameRank;
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse data", e);
         }
     }
+}
+//싱글톤? 빈 생성
+@Configuration
+class AppConfig {
+
     @Bean
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
     @Bean
-    public HttpClient httpClient(){
+    public HttpClient httpClient() {
         return HttpClient.newHttpClient();
-    }
-    @Bean
-    public HttpRequest httpRequest(){
-        return HttpRequest.newBuilder().build();
     }
 }
