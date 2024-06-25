@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class GodMeteorApplication {
 
-    public static void main(String[] args) { SpringApplication.run(GodMeteorApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(GodMeteorApplication.class, args);
     }
 
 }
