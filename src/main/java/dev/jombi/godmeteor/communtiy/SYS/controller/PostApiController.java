@@ -5,7 +5,10 @@ import dev.jombi.godmeteor.communtiy.SYS.dto.PostRequestDto;
 import dev.jombi.godmeteor.communtiy.SYS.dto.PostResponseDto;
 import dev.jombi.godmeteor.communtiy.SYS.repository.PostRepository;
 import dev.jombi.godmeteor.communtiy.JJE.service.PostServiceImpl;
+import dev.jombi.godmeteor.global.response.Response;
+import dev.jombi.godmeteor.global.response.ResponseData;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,31 +24,35 @@ public class PostApiController {
     private final PostRepository postRepository;
 
     @PostMapping
-    public PostResponseDto savePost(@RequestBody PostRequestDto request) {
+    public ResponseEntity<ResponseData<PostResponseDto>> savePost(@RequestBody PostRequestDto request) {
         postService.savePost(request);
 
-        return new PostResponseDto(
+        PostResponseDto postResponseDto = new PostResponseDto(
                 request.ToEntity().getTitle(),
                 request.ToEntity().getWriter(),
                 request.ToEntity().getContents()
         );
+
+        return ResponseData.ok("post save", postResponseDto);
     }
 
-    @PutMapping("/{id}")
-    public PostResponseDto updatePost(@PathVariable("id") Long id, @RequestBody PostRequestDto request) {
+    @PutMapping
+    public ResponseEntity<ResponseData<PostResponseDto>> updatePost(@PathVariable("id") Long id, @RequestBody PostRequestDto request) {
         postService.update(id, request);
         Optional<Post> findPost = postRepository.findById(id);
         Post post = findPost.get();
 
-        return new PostResponseDto(
+        PostResponseDto postResponseDto = new PostResponseDto(
                 post.getTitle(),
                 post.getWriter(),
                 post.getContents()
         );
+
+        return ResponseData.ok("post update", postResponseDto);
     }
 
-    @GetMapping("/list")
-    public List<PostRequestDto> findPosts() {
+    @GetMapping
+    public ResponseEntity<ResponseData<List<PostRequestDto>>> findPosts() {
         List<Post> findAll = postRepository.findAll();
         List<PostRequestDto> allPost = new ArrayList<>();
 
@@ -59,22 +66,25 @@ public class PostApiController {
             allPost.add(build);
         }
 
-        return allPost;
+        return ResponseData.ok("post find", allPost);
     }
 
-    @GetMapping("/{id}")
-    public PostResponseDto findPost(@PathVariable("id") Long id) {
+    @GetMapping
+    public ResponseEntity<ResponseData<PostResponseDto>> findPost(@PathVariable("id") Long id) {
         PostRequestDto post = postService.getPost(id);
 
-        return new PostResponseDto(
+        PostResponseDto postResponseDto =  new PostResponseDto(
                 post.getWriter(),
                 post.getTitle(),
                 post.getContents()
         );
+
+        return ResponseData.ok("id find", postResponseDto);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Response> delete(@PathVariable("id") Long id) {
         postService.deletePost(id);
+        return Response.ok("삭제 성공");
     }
 }
