@@ -13,7 +13,7 @@ public class ExceptionResponse extends Response {
     }
 
 
-    public static ResponseEntity<ExceptionResponse> of(ExceptionDetail e) {
-        return ResponseEntity.status(e.getStatus()).body(new ExceptionResponse(e.getEnumName(), e.getStatus().value(), e.getMessage()));
+    public static ResponseEntity<ExceptionResponse> of(ExceptionDetail e, Object... formats) {
+        return ResponseEntity.status(e.getStatus()).body(new ExceptionResponse(e.getEnumName(), e.getStatus().value(), String.format(e.getMessage(), formats)));
     }
 }

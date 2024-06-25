@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @Slf4j
 @RestControllerAdvice
@@ -20,11 +21,16 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ExceptionResponse> customException(CustomException e) {
-        return ExceptionResponse.of(e.getDetail());
+        return ExceptionResponse.of(e.getDetail(), e.getFormats());
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<ExceptionResponse> missingParameter(MissingServletRequestParameterException ignored) {
-        return ExceptionResponse.of(GlobalExceptionCode.PARAMETER_NOT_MATCH);
+    public ResponseEntity<ExceptionResponse> missingParameter(MissingServletRequestParameterException e) {
+        return ExceptionResponse.of(GlobalExceptionCode.PARAMETER_NOT_MATCH, e.getParameterName(), e.getParameterType());
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ExceptionResponse> noResourceFound(NoResourceFoundException e) {
+        return ExceptionResponse.of(GlobalExceptionCode.RESOURCE_NOT_FOUND, e.getResourcePath());
     }
 }

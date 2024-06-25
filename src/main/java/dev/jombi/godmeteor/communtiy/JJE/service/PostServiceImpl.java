@@ -4,13 +4,14 @@ import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
 import dev.jombi.godmeteor.communtiy.SYS.dto.PostRequestDto;
 import dev.jombi.godmeteor.communtiy.SYS.dto.PostResponseDto;
 import dev.jombi.godmeteor.communtiy.SYS.repository.PostRepository;
+import dev.jombi.godmeteor.communtiy.exception.PostExceptionCode;
+import dev.jombi.godmeteor.global.exception.CustomException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,8 +46,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto getPost(Long id) {
-        Optional<Post> postWrapper = postRepository.findById(id);
-        Post post = postWrapper.get();
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new CustomException(PostExceptionCode.POST_NOT_FOUND).setFormats(id.toString()));
 
         return PostResponseDto.builder()
                 .id(post.getId())
@@ -70,7 +71,7 @@ public class PostServiceImpl implements PostService {
         List<Post> posts = postRepository.findByTitleContaining(keyword);
         List<PostResponseDto> postList = new ArrayList<>();
 
-        for(Post post : posts){
+        for (Post post : posts) {
             PostResponseDto build = PostResponseDto.builder()
                     .id(post.getId())
                     .createdAt(post.getCreatedAt())
@@ -85,11 +86,12 @@ public class PostServiceImpl implements PostService {
 
         return postList;
     }
+
     @Transactional
     @Override
     public void update(Long id, PostRequestDto postDto) {
-        Optional<Post> byId = postRepository.findById(id);
-        Post post = byId.get();
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new CustomException(PostExceptionCode.POST_NOT_FOUND).setFormats(id.toString()));
 
         post.updatePost(postDto.getWriter(), postDto.getTitle(), postDto.getContents());
     }
