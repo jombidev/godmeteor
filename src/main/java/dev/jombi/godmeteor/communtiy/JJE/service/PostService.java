@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PostService {
     public void savePost(PostRequestDto postDto);
-    public List<PostRequestDto> getPostList(Integer pageNum);
+    public List<PostRequestDto> getPostList();
     public PostRequestDto getPost(Long id);
     public void deletePost(Long id);
     public List<PostRequestDto> searchPosts(String keyword);

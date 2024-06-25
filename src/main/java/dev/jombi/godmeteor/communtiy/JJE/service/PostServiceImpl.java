@@ -16,15 +16,13 @@ import java.util.Optional;
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
-    @Transactional
     @Override
     public void savePost(PostRequestDto postRequestDto) {
         postRepository.save(postRequestDto.ToEntity());
     }
 
-    @Transactional
     @Override
-    public List<PostRequestDto> getPostList(Integer pageNum) {
+    public List<PostRequestDto> getPostList() {
 
         List<Post> all = postRepository.findAll();
         List<PostRequestDto> postRequestDtoList = new ArrayList<>();
@@ -41,7 +39,6 @@ public class PostServiceImpl implements PostService {
         return postRequestDtoList;
     }
 
-    @Transactional
     @Override
     public PostRequestDto getPost(Long id) {
         Optional<Post> postWrapper = postRepository.findById(id);
