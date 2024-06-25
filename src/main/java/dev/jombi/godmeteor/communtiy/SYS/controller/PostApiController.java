@@ -32,15 +32,20 @@ public class PostApiController {
         return Response.ok("post updated.");
     }
 
+    @GetMapping("/find")
+    public ResponseEntity<ResponseData<PostResponseDto>> findPosts(@RequestParam String keyword) {
+        return ResponseData.ok("post searched", (PostResponseDto) postService.searchPosts(keyword));
+    }
+
     @GetMapping
-    public ResponseEntity<ResponseData<List<PostResponseDto>>> findPosts() {
+    public ResponseEntity<ResponseData<List<PostResponseDto>>> getPosts() {
         List<PostResponseDto> allPosts = postService.getPostList();
 
         return ResponseData.ok("post found", allPosts);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseData<PostResponseDto>> findPost(@PathVariable("id") Long id) {
+    public ResponseEntity<ResponseData<PostResponseDto>> getPost(@PathVariable("id") Long id) {
         PostResponseDto post = postService.getPost(id);
 
         return ResponseData.ok("one post found", post);
