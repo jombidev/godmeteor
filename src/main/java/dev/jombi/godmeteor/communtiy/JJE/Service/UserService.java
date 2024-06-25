@@ -3,6 +3,7 @@ package dev.jombi.godmeteor.communtiy.JJE.Service;
 import dev.jombi.godmeteor.communtiy.JJE.Entity.User;
 import dev.jombi.godmeteor.communtiy.SYS.dto.UserDto;
 import dev.jombi.godmeteor.communtiy.SYS.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor // 생성자를 자동으로 만들어 줌
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
