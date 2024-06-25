@@ -4,8 +4,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
+@Data @Builder
+@AllArgsConstructor
 public class PostResponseDto {
 
     private Long id;
@@ -14,11 +14,4 @@ public class PostResponseDto {
     private String contents;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    @Builder
-    public PostResponseDto(String writer, String title, String contents) {
-        this.writer = writer;
-        this.title = title;
-        this.contents = contents;
-    }
 }
