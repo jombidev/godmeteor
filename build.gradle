@@ -17,6 +17,7 @@ java {
 sourceSets {
     main {
         proto {
+            //noinspection GroovyAssignabilityCheck
             srcDir 'src/main/protobuf'
         }
     }
