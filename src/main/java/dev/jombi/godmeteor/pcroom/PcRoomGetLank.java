@@ -1,5 +1,6 @@
 package dev.jombi.godmeteor.pcroom;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,20 +31,20 @@ public class PcRoomGetLank {
 
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            return parse(response.body());
+            return parse(response.body()).toString();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Failed to fetch data", e);
         }
     }
 //제이슨 파싱
-    private String parse(String responseBody) {
+    private PcRoomJson parse(String responseBody) {
         try {
-//            JsonNode root = objectMapper.readValue(json,PcRoomJson);
-            JsonNode root = objectMapper.readTree(responseBody);
-            JsonNode gameRankNode = root.path("gameRank");
-            String gameRank = gameRankNode.asText();
-            return gameRank;
-        } catch (IOException e) {
+            PcRoomJson pcRoomJson = objectMapper.readValue(responseBody,PcRoomJson.class);
+//            JsonNode root = objectMapper.readTree(responseBody);
+//            JsonNode gameRankNode = root.path("gameRank");
+//            String gameRank = gameRankNode.asText();
+            return pcRoomJson;
+        } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to parse data", e);
         }
     }
