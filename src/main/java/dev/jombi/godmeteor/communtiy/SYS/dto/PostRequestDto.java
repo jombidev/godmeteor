@@ -9,12 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 public class PostRequestDto {
 
-    private Long id;
     private String writer;
     private String title;
     private String contents;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     public Post toEntity() {
         return Post.builder()
