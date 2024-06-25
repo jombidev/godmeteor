@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -13,15 +14,9 @@ import java.util.Objects;
 public class PcRoomController {
     private final PcRoomGetLank pcRoomGetLank;
 
-    @GetMapping(value = "/pcRank")
-    public String getGameRank(@RequestParam String gameRank) {
-        return pcRoomGetLank.get();
-    }
-
     @GetMapping(value = "/users")
-    public ResponseEntity<ResponseData<String>> PcRoomGetGameRankResponseEntity() {
+    public ResponseEntity<ResponseData<List<PcRoomJson.GameRank>>> PcRoomGetGameRankResponseEntity() {
         return ResponseData.ok("잘되나?", pcRoomGetLank.get());
     }
-
 
 }

@@ -2,20 +2,24 @@ package dev.jombi.godmeteor.pcroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PcRoomJson {
+    private List<GameRank> gameRank;
 
-    @JsonProperty("gameRank") // JSON 필드 이름과 매핑
-    private String gameRank;
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class GameRank {
+        private int gameRank;
 
-    // gameRank 필드의 Getter
-    public String getGameRank() {
-        return gameRank;
-    }
-
-    // gameRank 필드의 Setter
-    public void setGameRank(String gameRank) {
-        this.gameRank = gameRank;
+        private String gameName;
+        private long timeCountTotal;
+        private int gameRankUpDown;
     }
 }
