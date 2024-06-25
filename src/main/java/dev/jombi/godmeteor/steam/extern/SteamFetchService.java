@@ -41,7 +41,7 @@ public class SteamFetchService {
 
     private static final String API_ENDPOINT = "https://api.steampowered.com";
 
-    public Map<String, List<SteamGameDto>> topReleases(int year, int month, Language language) {
+    public Map<String, List<SteamGameDto>> feedOnMonth(int year, int month, Language language) {
         var reqMonth = Month.of(month).name().toLowerCase(Locale.ROOT);
 
         String parse = processString("https://store.steampowered.com/charts/topnewreleases/top_" + reqMonth + "_" + year, Map.of());

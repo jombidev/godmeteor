@@ -28,8 +28,8 @@ public class SteamController {
         return ResponseData.ok("게임 조회 완료", fetcher.gameInfo(id, Language.KR));
     }
 
-    @GetMapping("/top")
+    @GetMapping("/feed")
     public ResponseEntity<ResponseData<Map<String, List<SteamGameDto>>>> topGames(@RequestParam(defaultValue = "2024") int year, @RequestParam int month) {
-        return ResponseData.ok(year + "년 " + month + "월의 인기 게임 조회 성공", fetcher.topReleases(year, month, Language.KR));
+        return ResponseData.ok(year + "년 " + month + "월의 피드 조회 성공", fetcher.feedOnMonth(year, month, Language.KR));
     }
 }
