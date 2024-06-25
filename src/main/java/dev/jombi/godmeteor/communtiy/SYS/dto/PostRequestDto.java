@@ -2,9 +2,9 @@ package dev.jombi.godmeteor.communtiy.SYS.dto;
 
 import lombok.*;
 import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 @Builder
 public class PostRequestDto {
