@@ -14,9 +14,9 @@ import java.util.Objects;
 public class PcRoomController {
     private final PcRoomGetLank pcRoomGetLank;
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/pcRoom")
     public ResponseEntity<ResponseData<List<PcRoomJson.GameRank>>> PcRoomGetGameRankResponseEntity() {
-        return ResponseData.ok("잘되나?", pcRoomGetLank.get());
+        return ResponseData.ok("게임 조회 완료", pcRoomGetLank.get());
     }
 
 }
