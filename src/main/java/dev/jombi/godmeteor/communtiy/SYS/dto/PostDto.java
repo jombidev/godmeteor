@@ -1,7 +1,12 @@
 package dev.jombi.godmeteor.communtiy.SYS.dto;
 
+import lombok.*;
+import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
+@Getter @Setter
 public class PostDto {
 
     private Long id;
@@ -11,6 +16,7 @@ public class PostDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @Builder
     public PostDto(Long id, String writer, String title, String contents, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.writer = writer;
@@ -20,53 +26,11 @@ public class PostDto {
         this.updatedAt = updatedAt;
     }
 
-    // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public Post ToEntity() {
+        return Post.builder()
+                .writer(this.writer)
+                .title(this.title)
+                .contents(this.contents)
+                .build();
     }
 }
