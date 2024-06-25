@@ -2,6 +2,7 @@ package dev.jombi.godmeteor.communtiy.JJE.service;
 
 import dev.jombi.godmeteor.communtiy.JJE.entity.Post;
 import dev.jombi.godmeteor.communtiy.SYS.dto.PostRequestDto;
+import dev.jombi.godmeteor.communtiy.SYS.dto.PostResponseDto;
 import dev.jombi.godmeteor.communtiy.SYS.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +19,20 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void savePost(PostRequestDto postRequestDto) {
-        postRepository.save(postRequestDto.ToEntity());
+        postRepository.save(postRequestDto.toEntity());
     }
 
     @Override
-    public List<PostRequestDto> getPostList() {
+    public List<PostResponseDto> getPostList() {
 
         List<Post> all = postRepository.findAll();
-        List<PostRequestDto> postRequestDtoList = new ArrayList<>();
+        List<PostResponseDto> postRequestDtoList = new ArrayList<>();
 
         for (Post post : all) {
-            PostRequestDto postDto = PostRequestDto.builder()
+            PostResponseDto postDto = PostResponseDto.builder()
+                    .id(post.getId())
+                    .createdAt(post.getCreatedAt())
+                    .updatedAt(post.getUpdatedAt())
                     .title(post.getTitle())
                     .contents(post.getContents())
                     .writer(post.getWriter())
@@ -40,11 +44,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostRequestDto getPost(Long id) {
+    public PostResponseDto getPost(Long id) {
         Optional<Post> postWrapper = postRepository.findById(id);
         Post post = postWrapper.get();
 
-        return PostRequestDto.builder()
+        return PostResponseDto.builder()
+                .id(post.getId())
+                .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
                 .title(post.getTitle())
                 .contents(post.getContents())
                 .writer(post.getWriter())
@@ -59,12 +66,15 @@ public class PostServiceImpl implements PostService {
 
     @Transactional
     @Override
-    public List<PostRequestDto> searchPosts(String keyword) {
+    public List<PostResponseDto> searchPosts(String keyword) {
         List<Post> posts = postRepository.findByTitleContaining(keyword);
-        List<PostRequestDto> postList = new ArrayList<>();
+        List<PostResponseDto> postList = new ArrayList<>();
 
         for(Post post : posts){
-            PostRequestDto build = PostRequestDto.builder()
+            PostResponseDto build = PostResponseDto.builder()
+                    .id(post.getId())
+                    .createdAt(post.getCreatedAt())
+                    .updatedAt(post.getUpdatedAt())
                     .title(post.getTitle())
                     .contents(post.getContents())
                     .writer(post.getWriter())
