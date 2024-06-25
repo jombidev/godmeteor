@@ -33,8 +33,8 @@ public class PostApiController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<ResponseData<PostResponseDto>> findPosts(@RequestParam String keyword) {
-        return ResponseData.ok("post searched", (PostResponseDto) postService.searchPosts(keyword));
+    public ResponseEntity<ResponseData<List<PostResponseDto>>> findPosts(@RequestParam String keyword) {
+        return ResponseData.ok("post searched",postService.searchPosts(keyword));
     }
 
     @GetMapping
