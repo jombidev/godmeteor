@@ -36,7 +36,7 @@ public class PostApiController {
         return ResponseData.ok("post save", postResponseDto);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseData<PostResponseDto>> updatePost(@PathVariable("id") Long id, @RequestBody PostRequestDto request) {
         postService.update(id, request);
         Optional<Post> findPost = postRepository.findById(id);
@@ -69,7 +69,7 @@ public class PostApiController {
         return ResponseData.ok("post find", allPost);
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<ResponseData<PostResponseDto>> findPost(@PathVariable("id") Long id) {
         PostRequestDto post = postService.getPost(id);
 
